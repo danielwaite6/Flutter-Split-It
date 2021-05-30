@@ -36,6 +36,9 @@ dependencies:
   # SOCIAL GOOGLE/IOS LOGIN
   google_sign_in: ^5.0.4
 
+  # FACILITAR OS TESTES
+  mocktail: ^0.1.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
