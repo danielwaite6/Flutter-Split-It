@@ -6,6 +6,10 @@ import 'app_theme.dart';
 abstract class AppTextStyles {
   TextStyle get title;
   TextStyle get button;
+  TextStyle get infoCardTitle;
+  TextStyle get infoCardSubTitle1;
+  TextStyle get infoCardSubTitle2;
+  TextStyle get appBar;
 }
 
 class AppTextStylesDefault implements AppTextStyles {
@@ -21,4 +25,29 @@ class AppTextStylesDefault implements AppTextStyles {
         fontSize: 40,
         color: AppTheme.colors.title,
       );
+
+  @override
+  TextStyle get appBar => GoogleFonts.montserrat(
+        fontWeight: FontWeight.w700,
+        fontSize: 24,
+        color: AppTheme.colors.titleAppBar,
+      );
+
+  @override
+  TextStyle get infoCardTitle => GoogleFonts.inter(
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      color: AppTheme.colors.infoCardTitle);
+
+  @override
+  TextStyle get infoCardSubTitle1 => GoogleFonts.inter(
+      fontWeight: FontWeight.w600,
+      fontSize: 20,
+      color: AppTheme.colors.infoCardSubTitle1);
+
+  @override
+  TextStyle get infoCardSubTitle2 => GoogleFonts.inter(
+      fontWeight: FontWeight.w600,
+      fontSize: 20,
+      color: AppTheme.colors.infoCardSubTitle2);
 }
