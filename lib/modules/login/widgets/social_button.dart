@@ -19,9 +19,11 @@ class SocialButtonWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            border: Border.fromBorderSide(
-                BorderSide(color: AppTheme.colors.border))),
+          borderRadius: BorderRadius.circular(5),
+          border: Border.fromBorderSide(
+            BorderSide(color: AppTheme.colors.border),
+          ),
+        ),
         child: Row(
           children: [
             Container(

@@ -45,7 +45,7 @@ class InfoCardWidget extends StatelessWidget {
                 height: 4,
               ),
               Text(
-                "R\$ ${value}",
+                "R\$ $value",
                 style: textStyle,
               ),
             ],
