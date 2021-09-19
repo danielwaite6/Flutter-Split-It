@@ -16,7 +16,8 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
 
   @override
   void initState() {
-    controller.getDashboard(() {
+    controller.getDashboard();
+    controller.listen((state) {
       setState(() {});
     });
     super.initState();
