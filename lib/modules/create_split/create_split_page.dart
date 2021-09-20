@@ -40,42 +40,76 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme.colors.backgroundPrimary,
       appBar: PreferredSize(
           child: SafeArea(
             top: true,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    backPage();
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: AppTheme.colors.backButton,
+                    ),
+                    onPressed: () {
+                      backPage();
+                    },
+                  ),
                 ),
-                Text.rich(
-                  TextSpan(
-                      text: "${index + 1}",
-                      style: AppTheme.textStyles.stepperIndicatorPrimary,
-                      children: [
-                        TextSpan(
-                            text: " - ${pages.length}",
-                            style:
-                                AppTheme.textStyles.stepperIndicatorSecondary)
-                      ]),
+                Padding(
+                  padding: const EdgeInsets.only(right: 24),
+                  child: Text.rich(
+                    TextSpan(
+                        text: "0${index + 1}",
+                        style: AppTheme.textStyles.stepperIndicatorPrimary,
+                        children: [
+                          TextSpan(
+                              text: " - 0${pages.length}",
+                              style:
+                                  AppTheme.textStyles.stepperIndicatorSecondary)
+                        ]),
+                  ),
                 ),
               ],
             ),
           ),
           preferredSize: Size.fromHeight(60)),
       body: pages[index],
-      floatingActionButton: index < 2
-          ? FloatingActionButton(
-              onPressed: () {
-                nextPage();
-              },
-              child: Icon(Icons.add),
-            )
-          : Container(),
+      bottomNavigationBar: Container(
+        height: 60,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Cancelar',
+                          style: AppTheme.textStyles.button,
+                        ))),
+                Container(
+                  width: 1,
+                  height: 60,
+                  color: AppTheme.colors.divider,
+                ),
+                Expanded(
+                    child: TextButton(
+                        onPressed: () {
+                          nextPage();
+                        },
+                        child: Text(
+                          'Continuar',
+                          style: AppTheme.textStyles.button,
+                        )))
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

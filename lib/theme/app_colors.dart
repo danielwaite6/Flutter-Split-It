@@ -24,6 +24,8 @@ abstract class AppColors {
 
   Color get stepperIndicatorPrimary;
   Color get stepperIndicatorSecondary;
+
+  Color get backButton;
 }
 
 class AppColorsDefault implements AppColors {
@@ -86,4 +88,7 @@ class AppColorsDefault implements AppColors {
 
   @override
   Color get stepperIndicatorSecondary => Color(0xFF666666);
+
+  @override
+  Color get backButton => Color(0xFF666666);
 }
