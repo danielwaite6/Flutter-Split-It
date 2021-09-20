@@ -4,20 +4,25 @@ import 'package:split_it/modules/home/widgets/icon_dollar_widget.dart';
 import 'package:split_it/shared/models/event_model.dart';
 import 'package:split_it/theme/app_theme.dart';
 
+import 'loading_tile_widget.dart';
+
 class EventTileWidget extends StatelessWidget {
   final EventModel model;
 
-  const EventTileWidget({Key? key, required this.model}) : super(key: key);
+  final bool isLoading;
+
+  const EventTileWidget({Key? key, required this.model, this.isLoading = false})
+      : super(key: key);
 
   IconDollarType get type =>
-      model.value >= 0 ? IconDollarType.receive : IconDollarType.send;
+      model.value! >= 0 ? IconDollarType.receive : IconDollarType.send;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
+    if (isLoading) {
+      return Row(
         children: [
-          IconDollarWidget(type: type),
+          LoadingWidget(size: Size(48, 48)),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 16),
@@ -26,40 +31,73 @@ class EventTileWidget extends StatelessWidget {
                 children: [
                   ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: Text(
-                      model.title,
-                      style: AppTheme.textStyles.eventTileTitle,
-                    ),
-                    subtitle: Text(
-                      model.created.toIso8601String(),
-                      style: AppTheme.textStyles.eventTileSubtitle,
-                    ),
+                    title: LoadingWidget(size: Size(81, 19)),
+                    subtitle: LoadingWidget(size: Size(81, 19)),
                     trailing: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "R\$ ${model.value}",
-                          style: AppTheme.textStyles.eventTileMoney,
-                        ),
+                        LoadingWidget(size: Size(61, 17)),
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
-                          "${model.people} pessoa${model.people == 1 ? '' : 's'}",
-                          style: AppTheme.textStyles.eventTilePeople,
-                        ),
+                        LoadingWidget(size: Size(44, 18)),
                       ],
                     ),
                   ),
-                  Divider(
+                  /*Divider(
                       //color: AppTheme.colors.divider,
-                      ),
+                      ),*/
                 ],
               ),
             ),
           ),
         ],
-      ),
+      );
+    }
+    return Row(
+      children: [
+        IconDollarWidget(type: type),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    model.title!,
+                    style: AppTheme.textStyles.eventTileTitle,
+                  ),
+                  subtitle: Text(
+                    model.created!.toIso8601String(),
+                    style: AppTheme.textStyles.eventTileSubtitle,
+                  ),
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "R\$ ${model.value}",
+                        style: AppTheme.textStyles.eventTileMoney,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "${model.people} pessoa${model.people == 1 ? '' : 's'}",
+                        style: AppTheme.textStyles.eventTilePeople,
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(
+                    //color: AppTheme.colors.divider,
+                    ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
