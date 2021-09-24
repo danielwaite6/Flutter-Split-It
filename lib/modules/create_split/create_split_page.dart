@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:split_it/modules/create_split/create_split_controller.dart';
+import 'package:split_it/modules/create_split/steps/one/step_one_page.dart';
+import 'package:split_it/modules/create_split/steps/two/step_two_page.dart';
+import 'package:split_it/modules/create_split/widgets/bottom_stepper_bar.dart';
+import 'package:split_it/modules/create_split/widgets/create_split_appbar.dart';
 import 'package:split_it/theme/app_theme.dart';
 
 class CreateSplitPage extends StatefulWidget {
@@ -9,17 +14,24 @@ class CreateSplitPage extends StatefulWidget {
 }
 
 class _CreateSplitPageState extends State<CreateSplitPage> {
-  final pages = [
-    Container(
-      color: Colors.red,
-    ),
-    Container(
-      color: Colors.blue,
-    ),
-    Container(
-      color: Colors.purple,
-    )
-  ];
+  final controller = CreateSplitController();
+
+  late List<Widget> pages;
+
+  @override
+  void initState() {
+    pages = [
+      StepOnePage(onChange: (value) {
+        controller.setEventName(value);
+        setState(() {});
+      }),
+      StepTwoPage(),
+      Container(
+        color: Colors.purple,
+      )
+    ];
+    super.initState();
+  }
 
   var index = 0;
 
@@ -41,74 +53,16 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.colors.backgroundPrimary,
-      appBar: PreferredSize(
-          child: SafeArea(
-            top: true,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: AppTheme.colors.backButton,
-                    ),
-                    onPressed: () {
-                      backPage();
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 24),
-                  child: Text.rich(
-                    TextSpan(
-                        text: "0${index + 1}",
-                        style: AppTheme.textStyles.stepperIndicatorPrimary,
-                        children: [
-                          TextSpan(
-                              text: " - 0${pages.length}",
-                              style:
-                                  AppTheme.textStyles.stepperIndicatorSecondary)
-                        ]),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          preferredSize: Size.fromHeight(60)),
+      appBar: CreateSplitAppBar(
+        actualPage: index,
+        onTapBack: backPage,
+        size: pages.length,
+      ),
       body: pages[index],
-      bottomNavigationBar: Container(
-        height: 60,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Cancelar',
-                          style: AppTheme.textStyles.button,
-                        ))),
-                Container(
-                  width: 1,
-                  height: 60,
-                  color: AppTheme.colors.divider,
-                ),
-                Expanded(
-                    child: TextButton(
-                        onPressed: () {
-                          nextPage();
-                        },
-                        child: Text(
-                          'Continuar',
-                          style: AppTheme.textStyles.button,
-                        )))
-              ],
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomStepperBar(
+        enabledButtons: controller.enableNavigateButton(),
+        onTapCancel: () {},
+        onTapNext: nextPage,
       ),
     );
   }
