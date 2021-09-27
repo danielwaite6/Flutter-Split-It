@@ -2,29 +2,26 @@ import 'package:mobx/mobx.dart';
 import 'package:split_it/modules/login/login_service.dart';
 import 'package:split_it/modules/login/login_state.dart';
 
-class LoginController {
-  final _state = Observable<LoginState>(LoginStateEmpty());
-  LoginState get state => _state.value;
-  set state(LoginState state) => _state.value = state;
+part 'login_controller.g.dart';
 
+class LoginController = _LoginControllerBase with _$LoginController;
+
+abstract class _LoginControllerBase with Store {
   final LoginService service;
 
-  LoginController({required this.service});
+  _LoginControllerBase({required this.service});
 
-  void update(LoginState state) {
-    var action = Action(() {
-      this.state = state;
-    });
-    action();
-  }
+  @observable
+  LoginState state = LoginStateEmpty();
 
+  @action
   Future<void> googleSignIn() async {
     try {
-      update(LoginStateLoading());
+      state = LoginStateLoading();
       final user = await service.googleSignIn();
-      update(LoginStateSuccess(user: user));
+      state = LoginStateSuccess(user: user);
     } catch (error) {
-      update(LoginStateFailure(message: error.toString()));
+      state = LoginStateFailure(message: error.toString());
     }
   }
 }
