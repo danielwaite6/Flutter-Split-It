@@ -42,6 +42,10 @@ dependencies:
   #Facilitar os Loadings
   shimmer: ^2.0.0
 
+  #Gerência de Estado
+  mobx: ^2.0.4
+  flutter_mobx: ^2.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

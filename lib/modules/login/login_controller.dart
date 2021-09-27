@@ -1,36 +1,30 @@
-import 'package:flutter/cupertino.dart';
+import 'package:mobx/mobx.dart';
 import 'package:split_it/modules/login/login_service.dart';
 import 'package:split_it/modules/login/login_state.dart';
 
 class LoginController {
-  LoginState state = LoginStateEmpty();
-  VoidCallback onUpdate;
-  Function(LoginState state)? onChange;
+  final _state = Observable<LoginState>(LoginStateEmpty());
+  LoginState get state => _state.value;
+  set state(LoginState state) => _state.value = state;
+
   final LoginService service;
 
-  LoginController({required this.onUpdate, required this.service});
+  LoginController({required this.service});
+
+  void update(LoginState state) {
+    var action = Action(() {
+      this.state = state;
+    });
+    action();
+  }
 
   Future<void> googleSignIn() async {
     try {
-      state = LoginStateLoading();
-      update();
+      update(LoginStateLoading());
       final user = await service.googleSignIn();
-      state = LoginStateSuccess(user: user);
-      update();
+      update(LoginStateSuccess(user: user));
     } catch (error) {
-      state = LoginStateFailure(message: error.toString());
-      update();
+      update(LoginStateFailure(message: error.toString()));
     }
-  }
-
-  void update() {
-    onUpdate();
-    if (onChange != null) {
-      onChange!(state);
-    }
-  }
-
-  void listen(Function(LoginState state) onChange) {
-    this.onChange = onChange;
   }
 }
