@@ -23,9 +23,9 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
   @override
   void initState() {
     pages = [
-      StepOnePage(onChange: (value) {
-        controller.setEventName(value);
-      }),
+      StepOnePage(
+        controller: controller,
+      ),
       StepTwoPage(),
       StepThreePage()
     ];
@@ -46,7 +46,7 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
         return pages[index];
       }),
       bottomNavigationBar: BottomStepperBar(
-        enabledButtons: true, //controller.enableNavigateButton(),
+        controller: controller,
         onTapCancel: () {},
         onTapNext: controller.nextPage,
       ),
