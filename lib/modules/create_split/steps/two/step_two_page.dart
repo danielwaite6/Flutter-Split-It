@@ -39,11 +39,11 @@ class _StepTwoPageState extends State<StepTwoPage> {
           height: 35,
         ),
         Observer(builder: (_) {
-          if (controller.friends.isEmpty) {
+          if (controller.items.isEmpty) {
             return Text("Nenhum amigo encontrado.");
           } else {
             return Column(
-              children: controller.friends
+              children: controller.items
                   .map(
                     (e) => PersonTile(name: e['name']),
                   )
