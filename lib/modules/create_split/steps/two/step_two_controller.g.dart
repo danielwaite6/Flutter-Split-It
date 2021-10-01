@@ -28,8 +28,8 @@ mixin _$StepTwoController on _StepTwoControllerBase, Store {
       AsyncAction('_StepTwoControllerBase.getFriends');
 
   @override
-  Future<void> getFriends(String search) {
-    return _$getFriendsAsyncAction.run(() => super.getFriends(search));
+  Future<void> getFriends() {
+    return _$getFriendsAsyncAction.run(() => super.getFriends());
   }
 
   final _$_StepTwoControllerBaseActionController =

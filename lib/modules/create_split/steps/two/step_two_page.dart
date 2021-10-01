@@ -16,6 +16,12 @@ class _StepTwoPageState extends State<StepTwoPage> {
   final controller = StepTwoController();
 
   @override
+  void initState() {
+    controller.getFriends();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

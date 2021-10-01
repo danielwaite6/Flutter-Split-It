@@ -30,9 +30,16 @@ class FirebaseRepository {
     }
   }
 
-  update() {}
+  Future<List<Map<String, dynamic>>> get(String collection) async {
+    try {
+      final response = await this.firestore.collection(collection).get();
+      return response.docs.map((e) => e.data()).toList();
+    } catch (e) {
+      throw e;
+    }
+  }
 
-  get() {}
+  update() {}
 
   delete() {}
 

@@ -12,20 +12,17 @@ abstract class _StepTwoControllerBase with Store {
 
   @action
   void onChange(String value) {
-    getFriends(value);
+    final filteredList = friends
+        .where(
+          (element) => element['name'].contains(value),
+        )
+        .toList();
+    friends = filteredList;
   }
 
   @action
-  Future<void> getFriends(String search) async {
-    if (search.isNotEmpty) {
-      final response = await this.repository.where(
-            key: "name",
-            value: search,
-            collection: "/friends",
-          );
-      friends = response;
-    } else {
-      friends = [];
-    }
+  Future<void> getFriends() async {
+    final response = await this.repository.get("/friends");
+    friends = response;
   }
 }
