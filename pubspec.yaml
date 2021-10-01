@@ -32,6 +32,7 @@ dependencies:
 
   # FIREBASE
   firebase_core: ^1.2.0
+  cloud_firestore: ^2.5.3
 
   # SOCIAL GOOGLE/IOS LOGIN
   google_sign_in: ^5.0.4
