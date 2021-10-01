@@ -32,6 +32,22 @@ mixin _$StepTwoController on _StepTwoControllerBase, Store {
     });
   }
 
+  final _$_selectedFriendsAtom =
+      Atom(name: '_StepTwoControllerBase._selectedFriends');
+
+  @override
+  ObservableList<Map<String, dynamic>> get _selectedFriends {
+    _$_selectedFriendsAtom.reportRead();
+    return super._selectedFriends;
+  }
+
+  @override
+  set _selectedFriends(ObservableList<Map<String, dynamic>> value) {
+    _$_selectedFriendsAtom.reportWrite(value, super._selectedFriends, () {
+      super._selectedFriends = value;
+    });
+  }
+
   final _$searchAtom = Atom(name: '_StepTwoControllerBase.search');
 
   @override
@@ -64,6 +80,28 @@ mixin _$StepTwoController on _StepTwoControllerBase, Store {
         name: '_StepTwoControllerBase.onChange');
     try {
       return super.onChange(value);
+    } finally {
+      _$_StepTwoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void addFriends(Map<String, dynamic> friend) {
+    final _$actionInfo = _$_StepTwoControllerBaseActionController.startAction(
+        name: '_StepTwoControllerBase.addFriends');
+    try {
+      return super.addFriends(friend);
+    } finally {
+      _$_StepTwoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeFriends(Map<String, dynamic> friend) {
+    final _$actionInfo = _$_StepTwoControllerBaseActionController.startAction(
+        name: '_StepTwoControllerBase.removeFriends');
+    try {
+      return super.removeFriends(friend);
     } finally {
       _$_StepTwoControllerBaseActionController.endAction(_$actionInfo);
     }

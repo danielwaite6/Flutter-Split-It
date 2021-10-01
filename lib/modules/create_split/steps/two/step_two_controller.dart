@@ -11,11 +11,26 @@ abstract class _StepTwoControllerBase with Store {
   List<Map<String, dynamic>> _friends = [];
 
   @observable
+  ObservableList<Map<String, dynamic>> _selectedFriends = ObservableList.of([]);
+
+  List<Map<String, dynamic>> get selectedFriends => _selectedFriends;
+
+  @observable
   String search = "";
 
   @action
   void onChange(String value) {
     search = value;
+  }
+
+  @action
+  void addFriends(Map<String, dynamic> friend) {
+    _selectedFriends.add(friend);
+  }
+
+  @action
+  void removeFriends(Map<String, dynamic> friend) {
+    _selectedFriends.remove(friend);
   }
 
   @computed

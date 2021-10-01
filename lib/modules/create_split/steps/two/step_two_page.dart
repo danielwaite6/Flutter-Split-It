@@ -39,13 +39,40 @@ class _StepTwoPageState extends State<StepTwoPage> {
           height: 35,
         ),
         Observer(builder: (_) {
+          if (controller.selectedFriends.isEmpty) {
+            return Container();
+          } else {
+            return Column(children: [
+              ...controller.selectedFriends
+                  .map(
+                    (e) => PersonTile(
+                      name: e['name'],
+                      isRemoved: true,
+                      onPressed: () {
+                        controller.removeFriends(e);
+                      },
+                    ),
+                  )
+                  .toList(),
+              SizedBox(
+                height: 16,
+              ),
+            ]);
+          }
+        }),
+        Observer(builder: (_) {
           if (controller.items.isEmpty) {
             return Text("Nenhum amigo encontrado.");
           } else {
             return Column(
               children: controller.items
                   .map(
-                    (e) => PersonTile(name: e['name']),
+                    (e) => PersonTile(
+                      name: e['name'],
+                      onPressed: () {
+                        controller.addFriends(e);
+                      },
+                    ),
                   )
                   .toList(),
             );
