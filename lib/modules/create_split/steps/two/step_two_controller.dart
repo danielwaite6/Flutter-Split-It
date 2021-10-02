@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:split_it/shared/models/friend_model.dart';
 import 'package:split_it/shared/repositories/firebase_repository.dart';
 part 'step_two_controller.g.dart';
 
@@ -8,12 +9,12 @@ abstract class _StepTwoControllerBase with Store {
   final repository = FirebaseRepository();
 
   @observable
-  List<Map<String, dynamic>> _friends = [];
+  List<FriendModel> _friends = [];
 
   @observable
-  ObservableList<Map<String, dynamic>> _selectedFriends = ObservableList.of([]);
+  ObservableList<FriendModel> _selectedFriends = ObservableList.of([]);
 
-  List<Map<String, dynamic>> get selectedFriends => _selectedFriends;
+  List<FriendModel> get selectedFriends => _selectedFriends;
 
   @observable
   String search = "";
@@ -24,20 +25,20 @@ abstract class _StepTwoControllerBase with Store {
   }
 
   @action
-  void addFriends(Map<String, dynamic> friend) {
+  void addFriends(FriendModel friend) {
     _selectedFriends.add(friend);
   }
 
   @action
-  void removeFriends(Map<String, dynamic> friend) {
+  void removeFriends(FriendModel friend) {
     _selectedFriends.remove(friend);
   }
 
   @computed
-  List<Map<String, dynamic>> get items {
+  List<FriendModel> get items {
     if (_selectedFriends.isNotEmpty) {
       final filteredList = _friends.where((element) {
-        final contains = element['name']
+        final contains = element.name
             .toString()
             .toLowerCase()
             .contains(search.toLowerCase());
@@ -53,7 +54,7 @@ abstract class _StepTwoControllerBase with Store {
     } else {
       final filteredList = _friends
           .where(
-            (element) => element['name']
+            (element) => element.name
                 .toString()
                 .toLowerCase()
                 .contains(search.toLowerCase()),
@@ -66,6 +67,6 @@ abstract class _StepTwoControllerBase with Store {
   @action
   Future<void> getFriends() async {
     final response = await this.repository.get("/friends");
-    _friends = response;
+    _friends = response.map((e) => FriendModel.fromMap(e)).toList();
   }
 }
