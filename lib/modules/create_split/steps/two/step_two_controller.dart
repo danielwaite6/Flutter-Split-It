@@ -35,6 +35,19 @@ abstract class _StepTwoControllerBase with Store {
 
   @computed
   List<Map<String, dynamic>> get items {
+    if (_selectedFriends.isNotEmpty) {
+      final filteredList = _friends.where((element) {
+        final contains = element['name']
+            .toString()
+            .toLowerCase()
+            .contains(search.toLowerCase());
+
+        final notAdd = !_selectedFriends.contains(element);
+        return contains && notAdd;
+      }).toList();
+      return filteredList;
+    }
+
     if (search.isEmpty) {
       return _friends;
     } else {
