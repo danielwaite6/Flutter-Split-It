@@ -39,6 +39,10 @@ abstract class AppColors {
   Color get textField;
 
   Color get inputBorder;
+
+  Color get iconAdd;
+
+  Color get iconRemove;
 }
 
 class AppColorsDefault implements AppColors {
@@ -125,4 +129,10 @@ class AppColorsDefault implements AppColors {
 
   @override
   Color get stepperNextButtonDisabled => Color(0xFF666666);
+
+  @override
+  Color get iconAdd => Color(0xFF40B28C);
+
+  @override
+  Color get iconRemove => Color(0xFFE83F5B);
 }

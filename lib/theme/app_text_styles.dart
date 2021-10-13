@@ -27,6 +27,9 @@ abstract class AppTextStyles {
 
   TextStyle get hintTextField;
   TextStyle get textField;
+
+  TextStyle get personTileTitle;
+  TextStyle get personTileSelected;
 }
 
 class AppTextStylesDefault implements AppTextStyles {
@@ -139,4 +142,12 @@ class AppTextStylesDefault implements AppTextStyles {
       fontWeight: FontWeight.w500,
       fontSize: 12,
       color: AppTheme.colors.stepperNextButtonDisabled);
+
+  @override
+  TextStyle get personTileSelected => GoogleFonts.inter(
+      fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.colors.button);
+
+  @override
+  TextStyle get personTileTitle => GoogleFonts.inter(
+      fontWeight: FontWeight.w700, fontSize: 16, color: AppTheme.colors.button);
 }
