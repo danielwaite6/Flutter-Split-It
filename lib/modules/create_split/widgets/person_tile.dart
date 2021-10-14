@@ -25,10 +25,16 @@ class PersonTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
             image: NetworkImage(data.photoURL),
+            fit: BoxFit.cover,
           ),
         ),
       ),
-      title: Text(data.name),
+      title: Text(
+        data.name,
+        style: isRemoved
+            ? AppTheme.textStyles.personTileSelected
+            : AppTheme.textStyles.personTileTitle,
+      ),
       trailing: IconButton(
         icon: isRemoved
             ? Icon(Icons.remove, color: AppTheme.colors.iconRemove)

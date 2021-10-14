@@ -43,6 +43,8 @@ abstract class AppColors {
   Color get iconAdd;
 
   Color get iconRemove;
+
+  Color get personTileTitleSelected;
 }
 
 class AppColorsDefault implements AppColors {
@@ -135,4 +137,7 @@ class AppColorsDefault implements AppColors {
 
   @override
   Color get iconRemove => Color(0xFFE83F5B);
+
+  @override
+  Color get personTileTitleSelected => Color(0xFF455250);
 }

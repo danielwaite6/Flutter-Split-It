@@ -144,10 +144,12 @@ class AppTextStylesDefault implements AppTextStyles {
       color: AppTheme.colors.stepperNextButtonDisabled);
 
   @override
-  TextStyle get personTileSelected => GoogleFonts.inter(
+  TextStyle get personTileTitle => GoogleFonts.inter(
       fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.colors.button);
 
   @override
-  TextStyle get personTileTitle => GoogleFonts.inter(
-      fontWeight: FontWeight.w700, fontSize: 16, color: AppTheme.colors.button);
+  TextStyle get personTileSelected => GoogleFonts.inter(
+      fontWeight: FontWeight.w700,
+      fontSize: 16,
+      color: AppTheme.colors.personTileTitleSelected);
 }
