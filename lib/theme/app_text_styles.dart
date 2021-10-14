@@ -19,6 +19,8 @@ abstract class AppTextStyles {
   TextStyle get stepperIndicatorPrimary;
   TextStyle get stepperIndicatorSecondary;
 
+  TextStyle get stepperNextButtonRegular;
+
   TextStyle get stepperNextButton;
   TextStyle get stepperNextButtonDisabled;
 
@@ -152,4 +154,10 @@ class AppTextStylesDefault implements AppTextStyles {
       fontWeight: FontWeight.w700,
       fontSize: 16,
       color: AppTheme.colors.personTileTitleSelected);
+
+  @override
+  TextStyle get stepperNextButtonRegular => GoogleFonts.inter(
+      fontWeight: FontWeight.w500,
+      fontSize: 16,
+      color: AppTheme.colors.stepperNextButtonRegular);
 }

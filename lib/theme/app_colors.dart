@@ -27,6 +27,7 @@ abstract class AppColors {
 
   Color get backButton;
 
+  Color get stepperNextButtonRegular;
   Color get stepperNextButton;
   Color get stepperNextButtonDisabled;
 
@@ -140,4 +141,7 @@ class AppColorsDefault implements AppColors {
 
   @override
   Color get personTileTitleSelected => Color(0xFF455250);
+
+  @override
+  Color get stepperNextButtonRegular => Color(0xFF40B28C);
 }
