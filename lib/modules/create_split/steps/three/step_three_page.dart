@@ -39,6 +39,7 @@ class _StepThreePageState extends State<StepThreePage> {
           builder: (_) => Column(children: [
             for (var i = 0; i < controller.items.length; i++)
               StepMultiInputText(
+                key: Key([i].hashCode.toString()),
                 isRemoved: true,
                 initialName: controller.items[i].name,
                 initialValue: controller.items[i].value,
