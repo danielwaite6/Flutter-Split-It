@@ -17,55 +17,59 @@ class _StepThreePageState extends State<StepThreePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        StepTitle(
-          title: "Qual ou quais",
-          subTitle: "\nitens você quer dividir ?",
-        ),
-        Observer(
-          builder: (_) => StepMultiInputText(
-            key: UniqueKey(),
-            count: controller.currentIndex,
-            itemName: (value) {
-              controller.onChanged(name: value);
-            },
-            itemValue: (value) {
-              controller.onChanged(value: value);
-            },
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          StepTitle(
+            title: "Qual ou quais",
+            subTitle: "\nitens você quer dividir ?",
           ),
-        ),
-        Observer(
-          builder: (_) => Column(children: [
-            for (var i = 0; i < controller.items.length; i++)
-              StepMultiInputText(
-                key: Key([i].hashCode.toString()),
-                isRemoved: true,
-                initialName: controller.items[i].name,
-                initialValue: controller.items[i].value,
-                count: i + 1,
-                itemName: (value) {},
-                itemValue: (value) {},
-                onDelete: () {
-                  controller.removeItem(i);
-                },
-              ),
-          ]),
-        ),
-        SizedBox(
-          height: 24,
-        ),
-        Observer(
-          builder: (_) => controller.showButton
-              ? AddTextButton(
-                  label: "Continuar",
-                  onPressed: () {
-                    controller.addItem();
+          Observer(
+            builder: (_) => StepMultiInputText(
+              key: UniqueKey(),
+              count: controller.currentIndex,
+              itemName: (value) {
+                controller.onChanged(name: value);
+              },
+              itemValue: (value) {
+                controller.onChanged(value: value);
+              },
+            ),
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          Observer(
+            builder: (_) => controller.showButton
+                ? AddTextButton(
+                    label: "Continuar",
+                    onPressed: () {
+                      controller.addItem();
+                    },
+                  )
+                : SizedBox(
+                    height: 15,
+                  ),
+          ),
+          Observer(
+            builder: (_) => Column(children: [
+              for (var i = 0; i < controller.items.length; i++)
+                StepMultiInputText(
+                  key: Key([i].hashCode.toString()),
+                  isRemoved: true,
+                  initialName: controller.items[i].name,
+                  initialValue: controller.items[i].value,
+                  count: i + 1,
+                  itemName: (value) {},
+                  itemValue: (value) {},
+                  onDelete: () {
+                    controller.removeItem(i);
                   },
-                )
-              : Container(),
-        ),
-      ],
+                ),
+            ]),
+          ),
+        ],
+      ),
     );
   }
 }
