@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
+
+import 'package:split_it/modules/create_split/create_split_controller.dart';
 import 'package:split_it/modules/create_split/steps/three/step_three_controller.dart';
 import 'package:split_it/modules/create_split/widgets/add_text_button.dart';
 import 'package:split_it/modules/create_split/widgets/step_multi_input_text.dart';
 import 'package:split_it/modules/create_split/widgets/step_title.dart';
 
 class StepThreePage extends StatefulWidget {
-  StepThreePage({Key? key}) : super(key: key);
+  final CreateSplitController createController;
+  StepThreePage({
+    Key? key,
+    required this.createController,
+  }) : super(key: key);
 
   @override
   _StepThreePageState createState() => _StepThreePageState();
@@ -14,6 +21,14 @@ class StepThreePage extends StatefulWidget {
 
 class _StepThreePageState extends State<StepThreePage> {
   final controller = StepThreeController();
+
+  @override
+  void initState() {
+    autorun((_) {
+      widget.createController.setItems(controller.items.toList());
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +75,12 @@ class _StepThreePageState extends State<StepThreePage> {
                   initialName: controller.items[i].name,
                   initialValue: controller.items[i].value,
                   count: i + 1,
-                  itemName: (value) {},
-                  itemValue: (value) {},
+                  itemName: (value) {
+                    controller.editItem(i, name: value);
+                  },
+                  itemValue: (value) {
+                    controller.editItem(i, value: value);
+                  },
                   onDelete: () {
                     controller.removeItem(i);
                   },

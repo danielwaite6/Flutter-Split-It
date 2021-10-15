@@ -32,4 +32,9 @@ abstract class _StepThreeControllerBase with Store {
   void removeItem(int index) {
     items.removeAt(index);
   }
+
+  @action
+  void editItem(int index, {String? name, double? value}) {
+    items[index] = items[index].copyWith(name: name, value: value);
+  }
 }
